@@ -1,0 +1,8 @@
+set(GFLAGS_ROOT ${THIRDPARTY_DIR}/gflags)
+
+set(GFLAGS_INCLUDE_DIR ${GFLAGS_ROOT}/include)
+set(GFLAGS_LIBRARY_DIR ${GFLAGS_ROOT}/lib)
+include_directories(${GFLAGS_INCLUDE_DIR})
+link_directories(${GFLAGS_LIBRARY_DIR})
+file(GLOB GFLAGS_LIBRARIES ${GFLAGS_LIBRARY_DIR}/libgflags.so)
+file(GLOB GFLAGS_STATIC_LIBS ${GFLAGS_LIBRARY_DIR}/libgflags.so)

@@ -1,0 +1,8 @@
+set(GLOG_ROOT ${THIRDPARTY_DIR}/glog)
+
+set(GLOG_INCLUDE_DIR ${GLOG_ROOT}/include)
+set(GLOG_LIBRARY_DIR ${GLOG_ROOT}/lib)
+include_directories(${GLOG_INCLUDE_DIR})
+link_directories(${GLOG_LIBRARY_DIR})
+file(GLOB GLOG_LIBRARIES ${GLOG_LIBRARY_DIR}/*.so)
+file(GLOB GLOG_STATIC_LIBS ${GLOG_LIBRARY_DIR}/*.so)

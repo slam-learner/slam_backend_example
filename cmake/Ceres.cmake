@@ -1,0 +1,8 @@
+set(CERES_ROOT ${THIRDPARTY_DIR}/ceres)
+
+set(CERES_INCLUDE_DIRS ${CERES_ROOT}/include)
+set(CERES_LIBRARY_DIRS ${CERES_ROOT}/lib)
+
+include_directories(${CERES_INCLUDE_DIRS})
+link_directories(${CERES_LIBRARY_DIRS})
+file(GLOB CERES_LIBRARIES ${CERES_LIBRARY_DIRS}/*.so)

@@ -1,0 +1,25 @@
+{
+    // code runner
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/build/debug", // compile_commands.json目录
+        "--background-index", // 在后台自动分析文件（基于complie_commands)
+        "--completion-style=detailed", // 启用详细补全
+        "-j=6", // 同时开启的任务数量
+        // 告诉clangd用那个clang进行编译，路径参考which clang++的路径
+        "--query-driver=/usr/bin/clang++",
+        "--clang-tidy", // clang-tidy功能
+        "--all-scopes-completion", // 全局补全
+        // 更详细的补全内容
+        "--completion-style=detailed",
+        "--function-arg-placeholders",
+        "--header-insertion=never", // 禁用自动插入头文件
+        "--pretty",
+        "--pch-storage=memory", // pch优化的位置
+    ],
+    "cmake.ignoreCMakeListsMissing": true,
+    // Configure glob patterns for excluding files and folders. For example, the File Explorer decides which files and 
+    // folders to show or hide based on this setting. Refer to the `search.exclude` setting to define search-specific excludes.
+    "files.exclude": {
+
+    }
+}

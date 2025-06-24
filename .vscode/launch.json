@@ -1,0 +1,114 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "BuildRunDebug",
+            "type": "cppdbg", // or lldb
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/debug/${fileBasenameNoExtension}", // 可执行文件路径
+            "args": [], // 命令行参数
+            "cwd": "${workspaceFolder}/bin/debug", // 工作目录
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb", // or lldb
+            "miDebuggerPath": "/usr/bin/gdb", // 调试器路径(/usr/bin/lldb or /usr/bin/gdb)
+            "miDebuggerArgs": "-q -ex quit; wait() { fg >/dev/null; }; /usr/bin/gdb -q --interpreter=mi",
+            "setupCommands": [
+                { // 显示STL容器的内容
+                    "description": "Enable pretty-printing for stl container",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": false
+                },
+                { // 显示Eigen的内容
+                    "description": "Enable pretty-printing for eigen",
+                    "text": "python import sys; sys.path.insert(0, '${workspaceFolder}/.vscode/printers/'); from eigen_printer import register_eigen_printers; register_eigen_printers(None);",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "build_debug"
+            // debug console -> -exec gdb原生命令
+            // debug console -> -exec p debug_C+打印值
+            // debug console -> -exec call 调用方法
+        },
+        {
+            "name": "BuildRunRelease",
+            "type": "cppdbg", // or lldb
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/release/${fileBasenameNoExtension}", // 可执行文件路径
+            "args": [], // 命令行参数
+            "cwd": "${workspaceFolder}/bin/release", // 工作目录
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb", // or lldb
+            "miDebuggerPath": "/usr/bin/gdb", // 调试器路径(/usr/bin/lldb or /usr/bin/gdb)
+            "miDebuggerArgs": "-q -ex quit; wait() { fg >/dev/null; }; /usr/bin/gdb -q --interpreter=mi",
+            "setupCommands": [
+                { // 显示STL容器的内容
+                    "description": "Enable pretty-printing for stl container",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": false
+                },
+                { // 显示Eigen的内容
+                    "description": "Enable pretty-printing for eigen",
+                    "text": "python import sys; sys.path.insert(0, '${workspaceFolder}/.vscode/printers/'); from eigen_printer import register_eigen_printers; register_eigen_printers(None);",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "build_release"
+        },
+        {
+            "name": "RunDebug",
+            "type": "cppdbg", // or lldb
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/debug/${fileBasenameNoExtension}", // 可执行文件路径
+            "args": [], // 命令行参数
+            "cwd": "${workspaceFolder}/bin/debug", // 工作目录
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb", // or lldb
+            "miDebuggerPath": "/usr/bin/gdb", // 调试器路径(/usr/bin/lldb or /usr/bin/gdb)
+            "miDebuggerArgs": "-q -ex quit; wait() { fg >/dev/null; }; /usr/bin/gdb -q --interpreter=mi",
+            "setupCommands": [
+                { // 显示STL容器的内容
+                    "description": "Enable pretty-printing for stl container",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": false
+                },
+                { // 显示Eigen的内容
+                    "description": "Enable pretty-printing for eigen",
+                    "text": "python import sys; sys.path.insert(0, '${workspaceFolder}/.vscode/printers/'); from eigen_printer import register_eigen_printers; register_eigen_printers(None);",
+                    "ignoreFailures": false
+                }
+            ],
+        },
+        {
+            "name": "RunRelease",
+            "type": "cppdbg", // or lldb
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/release/${fileBasenameNoExtension}", // 可执行文件路径
+            "args": [], // 命令行参数
+            "cwd": "${workspaceFolder}/bin/release", // 工作目录
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb", // or lldb
+            "miDebuggerPath": "/usr/bin/gdb", // 调试器路径(/usr/bin/lldb or /usr/bin/gdb)
+            "miDebuggerArgs": "-q -ex quit; wait() { fg >/dev/null; }; /usr/bin/gdb -q --interpreter=mi",
+            "setupCommands": [
+                { // 显示STL容器的内容
+                    "description": "Enable pretty-printing for stl container",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": false
+                },
+                { // 显示Eigen的内容
+                    "description": "Enable pretty-printing for eigen",
+                    "text": "python import sys; sys.path.insert(0, '${workspaceFolder}/.vscode/printers/'); from eigen_printer import register_eigen_printers; register_eigen_printers(None);",
+                    "ignoreFailures": false
+                }
+            ],
+        },
+    ]
+}
