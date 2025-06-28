@@ -110,5 +110,14 @@
                 }
             ],
         },
+        {
+            "name": "PlotResult",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "python": "/home/ydx/miniconda3/envs/ceres_from_scratch/bin/python",
+            "args": ["--optimized_poses", "data/optimized_poses.txt", "--initial_poses", "data/initial_poses.txt"],
+        }
     ]
 }
