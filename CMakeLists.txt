@@ -23,7 +23,7 @@ else()
 endif(BUILD_TYPE_UPPER STREQUAL "DEBUG")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 禁用跳过RPATH
@@ -60,7 +60,11 @@ add_library(${PROJECT_NAME}.lib SHARED ${lib_sources})
 target_include_directories(${PROJECT_NAME}.lib PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
 include(${PROJECT_SOURCE_DIR}/cmake/Packages.cmake)
-aux_source_directory(${PROJECT_SOURCE_DIR}/test sources)
+find_package(Ceres REQUIRED)
+find_package(g2o REQUIRED)
+find_package(GTSAM REQUIRED)
+
+file(GLOB_RECURSE sources "${PROJECT_SOURCE_DIR}/examples/*.cpp")
 foreach(src ${sources})
     get_filename_component(name ${src} NAME_WE)
     add_executable(${name} ${src})
@@ -68,12 +72,16 @@ foreach(src ${sources})
         ${PROJECT_SOURCE_DIR}/include
         ${CERES_INCLUDE_DIRS}
         ${EIGEN3_INCLUDE_DIR}
+        ${GTSAM_INCLUDE_DIRS}
+        ${G2O_INCLUDE_DIRS}
         ${GLOG_INCLUDE_DIR}
         ${GFLAGS_INCLUDE_DIR}
     )
     target_link_libraries(${name} 
         ${PROJECT_NAME}.lib
         ${CERES_LIBRARIES}
+        ${GTSAM_LIBRARIES}
+        ${G2O_LIBRARIES}
         ${GLOG_LIBRARIES}
         ${GFLAGS_LIBRARIES}
     )

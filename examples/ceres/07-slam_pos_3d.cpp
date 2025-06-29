@@ -2,8 +2,8 @@
 #include <functional>
 #include <iostream>
 #include <map>
-#include <vector>
 #include <thread>
+#include <vector>
 
 #include "Eigen/Geometry"
 #include "ceres/ceres.h"
@@ -185,7 +185,12 @@ void build_problem(const VecOfEdges& edges, MapOfPoses& poses, ceres::Problem* p
         return;
     }
 
-    ceres::LocalParameterization* quat_param = new ceres::EigenQuaternionParameterization();
+    // ceres 1.14
+    // ceres::LocalParameterization* quat_param = new ceres::EigenQuaternionParameterization();
+
+    // ceres 2.0+
+    ceres::Manifold* quaternion_manifold = new ceres::EigenQuaternionManifold;
+
     for (const auto& edge : edges) {
         auto pose1_itr = poses.find(edge.id1);
         auto pose2_itr = poses.find(edge.id2);
@@ -197,8 +202,13 @@ void build_problem(const VecOfEdges& edges, MapOfPoses& poses, ceres::Problem* p
         problem->AddResidualBlock(cost_function, nullptr, pose1_itr->second.p.data(),
                                   pose1_itr->second.q.coeffs().data(), pose2_itr->second.p.data(),
                                   pose2_itr->second.q.coeffs().data());
-        problem->SetParameterization(pose1_itr->second.q.coeffs().data(), quat_param);
-        problem->SetParameterization(pose2_itr->second.q.coeffs().data(), quat_param);
+        // ceres 1.14
+        // problem->SetParameterization(pose1_itr->second.q.coeffs().data(), quat_param);
+        // problem->SetParameterization(pose2_itr->second.q.coeffs().data(), quat_param);
+
+        // ceres 2.0+
+        problem->SetManifold(pose1_itr->second.q.coeffs().data(), quaternion_manifold);
+        problem->SetManifold(pose2_itr->second.q.coeffs().data(), quaternion_manifold);
     }
 
     // 固定住第一个位姿

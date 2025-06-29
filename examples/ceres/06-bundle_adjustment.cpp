@@ -32,7 +32,7 @@ struct BalProblem {
         double obs_x{}, obs_y{};
         for (int i = 0; i < num_obeservations; ++i) {
             ifs >> cam_index >> pt_index >> obs_x >> obs_y;
-            observations.emplace_back(cam_index, pt_index, obs_x, obs_y);
+            observations.push_back({cam_index, pt_index, obs_x, obs_y});
         }
 
         double axis_x{}, axis_y{}, axis_z{}, tx{}, ty{}, tz{}, f{}, k1{}, k2{};

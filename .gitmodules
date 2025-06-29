@@ -1,0 +1,9 @@
+[submodule "external/ceres-solver"]
+	path = external/ceres-solver
+	url = https://github.com/ceres-solver/ceres-solver
+[submodule "external/g2o"]
+	path = external/g2o
+	url = https://github.com/RainerKuemmerle/g2o
+[submodule "external/gtsam"]
+	path = external/gtsam
+	url = https://github.com/borglab/gtsam.git
