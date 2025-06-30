@@ -32,7 +32,7 @@ public:
      * @param func_name
      */
     template <class F>
-    static void Evaluate(F&& func, const std::string& func_name) {
+    static void evaluate(F&& func, const std::string& func_name) {
         constexpr int kMilliSecond = 1000;
         auto t1 = std::chrono::steady_clock::now();
         std::forward<F>(func)();
@@ -46,17 +46,34 @@ public:
         }
     }
 
+    /**
+     * 统计并返回函数用时
+     * @tparam F
+     * @param func
+     * @param func_name
+     */
+    template <class F>
+    static auto evaluate_once(F&& func) {
+        constexpr int kMilliSecond = 1000;
+        auto t1 = std::chrono::steady_clock::now();
+        std::forward<F>(func)();
+        auto t2 = std::chrono::steady_clock::now();
+        auto time_used = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1).count() * kMilliSecond;
+
+        return time_used;
+    }
+
     // 打印记录的所有耗时
-    static void PrintAll();
+    static void print_all();
 
     // 写入文件，方便作图分析
-    static void DumpIntoFile(const std::string& file_name);
+    static void dump_into_file(const std::string& file_name);
 
     // 获取某个函数的平均执行时间
-    static double GetMeanTime(const std::string& func_name);
+    static double get_mean_time(const std::string& func_name);
 
     // 清理记录
-    static void Clear() { records_.clear(); }
+    static void clear() { records_.clear(); }
 
 private:
     static std::map<std::string, TimerRecord> records_;

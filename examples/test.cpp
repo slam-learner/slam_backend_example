@@ -21,8 +21,8 @@ auto main() -> int {
     constexpr int n = 40;
 
     utils::print("testing fibonacci with n =", n);
-    utils::Timer::Evaluate([]() { fibonacci(n); }, "Fibonacci");
-    utils::Timer::PrintAll();
+    utils::Timer::evaluate([]() { fibonacci(n); }, "Fibonacci");
+    utils::Timer::print_all();
 
     return 0;
 }

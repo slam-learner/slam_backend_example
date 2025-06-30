@@ -11,7 +11,7 @@ namespace utils {
 
 std::map<std::string, Timer::TimerRecord> Timer::records_;
 
-void Timer::PrintAll() {
+void Timer::print_all() {
     utils::print(">>> ===== Printing run time =====");
     for (const auto& r : records_) {
         utils::print_wo_space(
@@ -23,7 +23,7 @@ void Timer::PrintAll() {
     utils::print(">>> ===== Printing run time end =====");
 }
 
-void Timer::DumpIntoFile(const std::string& file_name) {
+void Timer::dump_into_file(const std::string& file_name) {
     std::ofstream ofs(file_name, std::ios::out);
     if (!ofs.is_open()) {
         utils::print("Failed to open file:", file_name);
@@ -54,7 +54,7 @@ void Timer::DumpIntoFile(const std::string& file_name) {
     ofs.close();
 }
 
-double Timer::GetMeanTime(const std::string& func_name) {
+double Timer::get_mean_time(const std::string& func_name) {
     if (records_.find(func_name) == records_.end()) {
         return 0.0;
     }
