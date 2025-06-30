@@ -61,7 +61,6 @@ target_include_directories(${PROJECT_NAME}.lib PRIVATE ${PROJECT_SOURCE_DIR}/inc
 
 include(${PROJECT_SOURCE_DIR}/cmake/Packages.cmake)
 find_package(Ceres REQUIRED)
-find_package(g2o REQUIRED)
 find_package(GTSAM REQUIRED)
 
 file(GLOB_RECURSE sources "${PROJECT_SOURCE_DIR}/examples/*.cpp")
