@@ -53,7 +53,7 @@ public:
      * @param func_name
      */
     template <class F>
-    static auto evaluate_once(F&& func) {
+    [[nodiscard]] static auto evaluate_once(F&& func) {
         constexpr int kMilliSecond = 1000;
         auto t1 = std::chrono::steady_clock::now();
         std::forward<F>(func)();
