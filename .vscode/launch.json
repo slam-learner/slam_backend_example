@@ -116,7 +116,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "python": "/home/ydx/miniconda3/envs/ceres_from_scratch/bin/python",
+            "python": "/home/ydx/miniconda3/envs/slam/bin/python",
             "args": ["--optimized_poses", "data/optimized_poses.txt", "--initial_poses", "data/initial_poses.txt"],
         }
     ]

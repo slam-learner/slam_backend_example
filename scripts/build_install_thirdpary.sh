@@ -58,6 +58,7 @@ COMMON_CMAKE_ARGS=(
     -DCMAKE_PREFIX_PATH=${INSTALL_DIR}
     -DCMAKE_CXX_EXTENSIONS=OFF
     -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     -DBUILD_SHARED_LIBS=ON
 )
 
@@ -78,13 +79,13 @@ mkdir -p "$INSTALL_DIR"
 THIRD_SOURCE_DIR="$PROJECT_DIR/external"
 ##################################
 ## ceres
-if false; then
+if true; then
     echo ""
     echo "$SPLIT_LINE"
     echo "$SPLIT_LINE"
     echo ""
 
-    echo "Building gtsam..."
+    echo "Building ceres..."
     cd "$THIRD_SOURCE_DIR/ceres-solver"
     if [ "$CLEAN_BUILD" = true ]; then
         rm -rf build
@@ -104,14 +105,14 @@ if true; then
     echo "$SPLIT_LINE"
     echo ""
 
-    echo "Building gtsam..."
+    echo "Building g2o..."
     cd "$THIRD_SOURCE_DIR/g2o"
     if [ "$CLEAN_BUILD" = true ]; then
         rm -rf build
     fi
     mkdir -p build
     cd build
-    cmake .. "${COMMON_CMAKE_ARGS[@]}" -DCMAKE_PREFIX_PATH=$PROJECT_DIR/thirdparty/eigen3/share/eigen3/cmake;$PROJECT_DIR/thirdparty/spdlog/lib/cmake/spdlog
+    cmake .. "${COMMON_CMAKE_ARGS[@]}" -DCMAKE_PREFIX_PATH=$PROJECT_DIR/thirdparty/eigen3/share/eigen3/cmake
     make -j$NUM_PARALLEL_BUILDS
     make install
 fi

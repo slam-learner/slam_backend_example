@@ -1,7 +1,7 @@
 {
     // code runner
     "clangd.arguments": [
-        "--compile-commands-dir=${workspaceFolder}/build/debug", // compile_commands.json目录
+        "--compile-commands-dir=${workspaceFolder}", // compile_commands.json目录
         "--background-index", // 在后台自动分析文件（基于complie_commands)
         "--completion-style=detailed", // 启用详细补全
         "-j=6", // 同时开启的任务数量
