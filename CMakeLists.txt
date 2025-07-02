@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(vscode_cpp)
+project(slam_backend_example)
 
 #****************************************************************#
 ###################################
@@ -71,6 +71,7 @@ foreach(src ${sources})
         ${PROJECT_SOURCE_DIR}/include
         ${CERES_INCLUDE_DIRS}
         ${EIGEN3_INCLUDE_DIR}
+        ${Sophus_INCLUDE_DIRS}
         ${GTSAM_INCLUDE_DIRS}
         ${G2O_INCLUDE_DIRS}
         ${GLOG_INCLUDE_DIR}
@@ -83,5 +84,6 @@ foreach(src ${sources})
         ${G2O_LIBRARIES}
         ${GLOG_LIBRARIES}
         ${GFLAGS_LIBRARIES}
+        ${Sophus_LIBRARIES}
     )
 endforeach()
