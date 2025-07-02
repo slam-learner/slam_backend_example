@@ -26,10 +26,11 @@ using LinearSolverType = g2o::LinearSolverDense<BlockSolverType::PoseMatrixType>
 /*******************************************************************
  * Global Variable
  ********************************************************************/
-constexpr int kDataNum = 100;                               // 数据点
-constexpr double kSigma = 1.0;                              // 噪声Sigma值
-constexpr double kInvSigma = 1.0 / kSigma;                  // 噪声Sigma值倒数
-constexpr double kRealA = 1.0, kRealB = 2.0, kRealC = 1.0;  // 真实参数值
+constexpr int kDataNum = 100;                                         // 数据点
+constexpr double kSigma = 1.0;                                        // 噪声Sigma值
+constexpr double kInvSigma = 1.0 / kSigma;                            // 噪声Sigma值倒数
+constexpr double kRealA = 1.0, kRealB = 2.0, kRealC = 1.0;            // 真实参数值
+constexpr double kInitialA = 2.0, kInitialB = -1.0, kInitialC = 5.0;  // 参数初始估计值
 
 /*******************************************************************
  * Class/Struct
@@ -43,12 +44,12 @@ public:
 
     void oplusImpl(const double* update) override { _estimate += Eigen::Map<const Eigen::Vector3d>(update); }
 
-    bool read(std::istream& in) override { return true; }
+    bool read(std::istream& /*in*/) override { return true; }
 
-    bool write(std::ostream& out) const override { return true; }
+    bool write(std::ostream& /*out*/) const override { return true; }
 };
 
-// 模板参数：观测值维度、变量类型、连接顶点类型
+// 模板参数：观测值维度、观测值类型、连接顶点类型
 class CurveFittingEdge : public g2o::BaseUnaryEdge<1, double, CurveFittingVertex> {
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -74,9 +75,9 @@ public:
         _jacobianOplusXi[2] = -ye;
     }
 
-    bool read(std::istream& in) override { return true; }
+    bool read(std::istream& /*in*/) override { return true; }
 
-    bool write(std::ostream& out) const override { return true; }
+    bool write(std::ostream& /*out*/) const override { return true; }
 
 private:
     double x_;  // x 值，y值为观测值，在添加边时由 setMeasurement 函数设置
@@ -86,7 +87,8 @@ private:
  * Function
  ********************************************************************/
 std::vector<Point2> prepare_data() {
-    Random rdm(42);
+    constexpr int seed = 42;
+    Random rdm(seed);
     std::vector<Point2> data;
     data.reserve(kDataNum);
     for (int i = 0; i < kDataNum; ++i) {
@@ -101,11 +103,13 @@ std::vector<Point2> prepare_data() {
 }  // namespace
 
 int main() {
-    double ae = 2.0, be = -1.0, ce = 5.0;  // 估计参数值
+    double ae = kInitialA;
+    double be = kInitialB;
+    double ce = kInitialC;
     auto data = prepare_data();
 
     // 求解方法，这里选用GN法
-    auto solver = new g2o::OptimizationAlgorithmGaussNewton(
+    auto* solver = new g2o::OptimizationAlgorithmGaussNewton(
         std::make_unique<BlockSolverType>(std::make_unique<LinearSolverType>()));
     // 整个图模型
     g2o::SparseOptimizer optimizer;
@@ -129,9 +133,10 @@ int main() {
     }
 
     utils::print("start optimization");
+    constexpr int kIterations = 10;
     auto time_used = utils::Timer::evaluate_once([&optimizer]() -> void {
         optimizer.initializeOptimization();
-        optimizer.optimize(10);
+        optimizer.optimize(kIterations);
     });
     utils::print("time cost(ms):", time_used);
     utils::print("estimate value:", v->estimate().transpose());
