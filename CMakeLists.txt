@@ -79,8 +79,8 @@ foreach(src ${sources})
     )
     target_link_libraries(${name} 
         ${PROJECT_NAME}.lib
+        gtsam
         ${CERES_LIBRARIES}
-        ${GTSAM_LIBRARIES}
         ${G2O_LIBRARIES}
         ${GLOG_LIBRARIES}
         ${GFLAGS_LIBRARIES}
